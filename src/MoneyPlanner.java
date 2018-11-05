@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MoneyPlanner extends JFrame { // JFrame 상속
+public class MoneyPlanner extends JFrame {
 
 	JPanel back = new JPanel();
 

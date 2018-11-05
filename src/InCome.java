@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class InCome extends JFrame { // JFrame 상속
+public class InCome extends JFrame {
 
 	JPanel jp = new JPanel();
 	
