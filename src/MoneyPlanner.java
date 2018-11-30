@@ -14,21 +14,23 @@ public class MoneyPlanner extends JFrame {
 
 	// 버튼의 크기조정은 setSize, 위치관리는 setLocation
 
-	JButton start = new JButton("시작"); // 시작 버튼 생성
-	JButton exit = new JButton("종료"); // 종료 버튼 생성
+	JButton start = new CircleButton("시작"); // 시작 버튼 생성
+	JButton exit = new CircleButton("종료"); // 종료 버튼 생성
 
 	JLabel mainText = new JLabel("가계부");
 	Font f1 = new Font("돋움",Font.BOLD,40);
 
 	public MoneyPlanner() // 시작 화면
-	{	
-		setSize(500,800); // 화면 크기 (가로, 세로)
-		setVisible(true); // 프레임 화면표시 여부
-
-		Container c = getContentPane();
-
-		setTitle("MoneyPlanner"); //제목
+	{
+		setTitle("MoneyPlanner");
+		setLayout(null);
+		setSize(500,800);
+		setResizable(false);
+		setVisible(true);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 종료하면 윈도우에서도 종료
+		
+		Container c = getContentPane();		
 
 		c.add(mainText); // 가계부 글씨 출력
 		mainText.setFont(f1);
