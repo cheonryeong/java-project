@@ -1,7 +1,7 @@
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -9,6 +9,7 @@ import java.util.Calendar;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
@@ -29,7 +30,9 @@ public class InCome extends JFrame {
 	JButton date = new RoundedButton(cal.get(Calendar.YEAR) + "년 " + (cal.get(Calendar.MONTH) + 1) + "월");
 	JButton right = new CircleButton("→");
 	JButton result = new RoundedButton(""); // 합계 표시
+	JButton plus = new CircleButton("+");
 	JPanel list[] = new JPanel[31];
+	JLabel money[] = new JLabel[31];
 	JButton day[] = new RoundedButton[31];
 	JButton expend = new JButton("지출내역");
 	JButton income = new JButton("수입내역");
@@ -39,9 +42,15 @@ public class InCome extends JFrame {
 	Font font = new Font("맑은 고딕", Font.BOLD, 13);
 
 	public InCome() {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension dimes = toolkit.getScreenSize();
+		int screenWidth = (int)dimes.getWidth();
+		int screenHeight = (int)dimes.getHeight();
+
 		setTitle("수입");
 		setLayout(null);
 		setSize(500, 600);
+		setLocation(screenWidth/2 - 250, screenHeight/2 - 300);
 		getContentPane().setBackground(Color.white);
 		setResizable(false); // 창 크기 고정
 
@@ -54,13 +63,12 @@ public class InCome extends JFrame {
 
 		menu_panel.setBounds(0, 0, 500, 40);
 		button_panel.setBounds(0, 40, 500, 40);
-		
+
 		sp = new JScrollPane(date_panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		
+
 		sp.setBounds(0, 130, 490, 370);
 
-		date_panel.setBackground(Color.red);
-		button_panel.setBackground(Color.blue);
+		button_panel.setBackground(Color.white);
 
 		button_panel.add(left);
 		button_panel.add(date);
@@ -73,10 +81,10 @@ public class InCome extends JFrame {
 		expend.setFont(menu);
 		income.setFont(menu);
 		expend.setBounds(0, 0, 250, 40);
-		expend.setBorder(new TitledBorder(new LineBorder(Color.black, 1)));
+		expend.setBorder(new TitledBorder(new LineBorder(Color.black, 0)));
 		expend.setBackground(Color.white);
 		income.setBounds(251, 0, 249, 40);
-		income.setBorder(new TitledBorder(new LineBorder(Color.black, 1)));
+		income.setBorder(new TitledBorder(new LineBorder(Color.black, 0)));
 		income.setBackground(Color.white);
 
 		// 버튼 설정
@@ -84,13 +92,17 @@ public class InCome extends JFrame {
 		date.setBounds(45, 5, 90, 30);
 		right.setBounds(140, 5, 30, 30);
 		result.setBounds(200, 5, 280, 30);
-		
+		left.setFont(font);
+		right.setFont(font);
+		date.setFont(font);
+		result.setFont(font);
+
 		max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		
+
 		Dimension size = new Dimension(date_panel.getWidth(), 35 * max);
-		
+
 		date_panel.setPreferredSize(size);
-		
+
 		sp.getVerticalScrollBar().setUnitIncrement(18);
 		sp.setViewportView(date_panel);
 
@@ -100,11 +112,16 @@ public class InCome extends JFrame {
 			list[i].setLayout(null);
 			list[i].setSize(500, 80);
 
-			day[i] = new RoundedButton(cal.get(Calendar.MONTH) + 1 + "월 " + (i+1) + "일");
-			day[i].setBounds(10, 2, 100, 30);
+			day[i] = new RoundedButton(cal.get(Calendar.YEAR) + "년 " + (cal.get(Calendar.MONTH) + 1) + "월 " + (i+1) + "일");
+			day[i].setBounds(10, 2, 125, 30);
+			day[i].setFont(font);
+			money[i] = new JLabel("₩0",JLabel.RIGHT);
+			money[i].setFont(font);
+			money[i].setBounds(360,2,100,30);
 
 			list[i].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 			list[i].add(day[i]);
+			list[i].add(money[i]);
 			list[i].setBackground(Color.white);
 		}
 
@@ -114,20 +131,56 @@ public class InCome extends JFrame {
 			list[i].setBounds(0, y, 500, 35);
 			y += 35;
 		}
-		
-		expend.addActionListener(new ActionListener() // 지출 버튼 누르면 지출창 띄우기
+
+		add(plus);
+		plus.setBounds(sp.getX() + sp.getWidth() - 40, sp.getY() + sp.getHeight() + 10, 40, 40);
+		plus.setFont(font);
+
+		int sum = 0;
+		for(i = 0 ; i < max ; i++)
 		{
+			int a = Integer.parseInt(money[i].getText().substring(1, money[i].getText().length()));
+			sum += a;
+		}
+		result.setText("₩" + String.valueOf(sum));
+
+		expend.addActionListener(new ActionListener() // 지출 버튼 누르면 지출창 띄우기
+				{
 			public void actionPerformed(ActionEvent e) // ActionListener() 필수 메소드
 			{
 				dispose(); // 창 닫기
 				new Expend().setVisible(true); // 새 창 띄우기
 			}
+				});
+
+		plus.addActionListener(new ActionListener() // 내역 추가창
+				{
+			public void actionPerformed(ActionEvent e) // ActionListener() 필수 메소드
+			{
+				new AddData().setVisible(true); // 새 창 띄우기
+			}
+				});
+
+		left.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e) // ActionListener() 필수 메소드
+			{
+
+			}
 		});
-		
+
+		right.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e) // ActionListener() 필수 메소드
+			{
+
+			}
+		});
+
 		add(menu_panel);
 		add(button_panel);
 		add(sp);
-		
+
 		setVisible(true);
 	}
 

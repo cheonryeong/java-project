@@ -12,51 +12,51 @@ public class RoundedButton extends JButton {
 	private static final long serialVersionUID = 1208L;
 
 	public RoundedButton(String text) {
-        super(text);
-        decorate();
-    }
+		super(text);
+		decorate();
+	}
 
-    protected void decorate() {
-        setBorderPainted(false);
-        setOpaque(false);
-    }
-    
-    @Override
-    protected void paintComponent(Graphics g) {
-        int width = getWidth();
-        int height = getHeight();
+	protected void decorate() {
+		setBorderPainted(false);
+		setOpaque(false);
+	}
 
-        Graphics2D graphics = (Graphics2D) g;
+	@Override
+	protected void paintComponent(Graphics g) {
+		int width = getWidth();
+		int height = getHeight();
 
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		Graphics2D graphics = (Graphics2D) g;
 
-        if (getModel().isArmed())
-            graphics.setColor(getBackground().darker());
-        else if (getModel().isRollover())
-        {
-            graphics.setColor(new Color(220, 220, 220));
-            this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        }
-        else
-            graphics.setColor(new Color(200, 200, 200));
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        graphics.fillRoundRect(0, 0, width, height, 30, 30); // 둥근 정도
+		if (getModel().isArmed())
+			graphics.setColor(getBackground().darker());
+		else if (getModel().isRollover())
+		{
+			graphics.setColor(new Color(220, 220, 220));
+			this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		}
+		else
+			graphics.setColor(new Color(240, 240, 240));
 
-        FontMetrics fontMetrics = graphics.getFontMetrics();
+		graphics.fillRoundRect(0, 0, width, height, 30, 30); // 둥근 정도
 
-        Rectangle stringBounds = fontMetrics.getStringBounds(this.getText(), graphics).getBounds();
+		FontMetrics fontMetrics = graphics.getFontMetrics();
 
-        int textX = (width - stringBounds.width) / 2;
-        int textY = (height - stringBounds.height) / 2 + fontMetrics.getAscent();
+		Rectangle stringBounds = fontMetrics.getStringBounds(this.getText(), graphics).getBounds();
 
-        graphics.setColor(getForeground());
+		int textX = (width - stringBounds.width) / 2;
+		int textY = (height - stringBounds.height) / 2 + fontMetrics.getAscent();
 
-        graphics.setFont(getFont());
+		graphics.setColor(getForeground());
 
-        graphics.drawString(getText(), textX, textY);
+		graphics.setFont(getFont());
 
-        graphics.dispose();
+		graphics.drawString(getText(), textX, textY);
 
-        super.paintComponent(g);
-    }
+		graphics.dispose();
+
+		super.paintComponent(g);
+	}
 }
