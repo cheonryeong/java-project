@@ -9,7 +9,11 @@ import java.awt.RenderingHints;
 import javax.swing.JButton;
 
 public class CircleButton extends JButton {
-	private static final long serialVersionUID = 1208L;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2030087245225113056L;
 
 	public CircleButton(String text) {
 		super(text);
@@ -36,8 +40,7 @@ public class CircleButton extends JButton {
 		{
 			graphics.setColor(new Color(220, 220, 220));
 			this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		}
-		else
+		} else
 			graphics.setColor(new Color(240, 240, 240));
 
 		graphics.fillRoundRect(0, 0, width, height, 100, 100);

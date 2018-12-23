@@ -9,7 +9,11 @@ import java.awt.RenderingHints;
 import javax.swing.JButton;
 
 public class RoundedButton extends JButton {
-	private static final long serialVersionUID = 1208L;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2545671134184483741L;
 
 	public RoundedButton(String text) {
 		super(text);
@@ -32,12 +36,10 @@ public class RoundedButton extends JButton {
 
 		if (getModel().isArmed())
 			graphics.setColor(getBackground().darker());
-		else if (getModel().isRollover())
-		{
+		else if (getModel().isRollover()) {
 			graphics.setColor(new Color(220, 220, 220));
 			this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		}
-		else
+		} else
 			graphics.setColor(new Color(240, 240, 240));
 
 		graphics.fillRoundRect(0, 0, width, height, 30, 30); // 둥근 정도

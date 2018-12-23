@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-public class InCome extends JFrame implements ActionListener {
+public class Expend extends JFrame implements ActionListener {
 
 	JPanel date_panel = new JPanel(); // 스크롤바와 날짜, 돈 합계가 들어갈 패널
 	JPanel menu_panel = new JPanel(); // menu 패널
@@ -78,7 +78,7 @@ public class InCome extends JFrame implements ActionListener {
 
 		long total = 0L;
 
-		String sql = "select cast(date_format(date, '%d') as signed), sum(pay) from money1 where sort like '수입' and date like concat('"
+		String sql = "select cast(date_format(date, '%d') as signed), sum(pay) from money1 where sort like '지출' and date like concat('"
 				+ (y + "-" + m) + "', '%') group by date";
 
 		try {
@@ -116,8 +116,8 @@ public class InCome extends JFrame implements ActionListener {
 		result.setText("₩" + total);
 	}
 
-	public InCome() {
-		setTitle("수입");
+	public Expend() {
+		setTitle("지출");
 		setLayout(null);
 		setSize(500, 600);
 		setLocation(screenWidth / 2 - 250, screenHeight / 2 - 300);
@@ -218,7 +218,7 @@ public class InCome extends JFrame implements ActionListener {
 		add(plus);
 
 		plus.addActionListener(this);
-		expend.addActionListener(this);
+		income.addActionListener(this);
 		left.addActionListener(this);
 		right.addActionListener(this);
 		date.addActionListener(this);
@@ -238,9 +238,9 @@ public class InCome extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == expend) {
+		if (e.getSource() == income) {
 			dispose(); // 창 닫기
-			new Expend().setVisible(true); // 수입 창 띄우기
+			new InCome().setVisible(true); // 수입 창 띄우기
 		} else if (e.getSource() == left) {
 			cal.add(Calendar.MONTH, -1);
 
@@ -285,12 +285,12 @@ public class InCome extends JFrame implements ActionListener {
 		} else if (e.getSource() == date) {
 			clickDate();
 		} else if (e.getSource() == plus) {
-			new AddData("수입", this);
+			new AddData("지출", this);
 			this.setEnabled(false);
 		} else {
 			for (int i = 0; i < 31; i++) {
 				if (e.getSource() == day[i]) {
-					new List(e.getActionCommand(), "수입", this);
+					new List(e.getActionCommand(), "지출", this);
 				}
 			}
 		}
