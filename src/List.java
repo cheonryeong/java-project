@@ -142,8 +142,7 @@ public class List extends JFrame implements MouseListener {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				pk[i] = rs.getInt(1);
-				content[i].setText("종류: " + rs.getString(4) + " | " + "내역: " + rs.getString(5) + " | " + "금액: ₩"
-						+ rs.getString(6));
+				content[i].setText(rs.getString(4) + "            |            " + rs.getString(5)+ "            |            \\" + rs.getString(6));
 				i++;
 			}
 
