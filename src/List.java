@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -50,6 +51,8 @@ public class List extends JFrame implements MouseListener {
 		setTitle("내역");
 		setLayout(null);
 		setSize(500, 600);
+		Image img = toolkit.getImage("money.png");
+		setIconImage(img);
 		setLocation(screenWidth / 2 - 250, screenHeight / 2 - 300);
 		getContentPane().setBackground(Color.white);
 		setResizable(false); // 창 크기 고정
@@ -142,7 +145,8 @@ public class List extends JFrame implements MouseListener {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				pk[i] = rs.getInt(1);
-				content[i].setText(rs.getString(4) + "            |            " + rs.getString(5)+ "            |            \\" + rs.getString(6));
+				content[i].setText(rs.getString(4) + "            |            " + rs.getString(5)
+						+ "            |            \\" + rs.getString(6));
 				i++;
 			}
 

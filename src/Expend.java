@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -120,6 +121,8 @@ public class Expend extends JFrame implements ActionListener {
 		setTitle("지출");
 		setLayout(null);
 		setSize(500, 600);
+		Image img = toolkit.getImage("money.png");
+		setIconImage(img);
 		setLocation(screenWidth / 2 - 250, screenHeight / 2 - 300);
 		getContentPane().setBackground(Color.white);
 		setResizable(false); // 창 크기 고정
